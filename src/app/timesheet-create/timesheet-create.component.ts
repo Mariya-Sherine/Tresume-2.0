@@ -22,6 +22,7 @@ export class TimesheetCreateComponent implements OnInit {
   SRselectedFile: File | null = null;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private Service: TimesheetCreateService) {
+    this.timesheetData = [];
     this.addRow();
   }
 

@@ -27,13 +27,13 @@
           <thead>
             <tr>
               <th>Project</th>
-              <th>Sun</th>
-              <th>Mon</th>
-              <th>Tue</th>
-              <th>Wed</th>
-              <th>Thu</th>
-              <th>Fri</th>
-              <th>Sat</th>
+              <th>Sunday</th>
+              <th>Monday</th>
+              <th>Tuesday</th>
+              <th>Wednesday</th>
+              <th>Thursday</th>
+              <th>Friday</th>
+              <th>Saturday</th>
               <th>Comments</th>
               <th>Total hours</th>
               <th>Action</th>
@@ -41,10 +41,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let row of timesheetData; let i = index">
-              <td>
-                <select class="form-control" [(ngModel)]="row.project">
-                </select>
-              </td>
+              <td><input type="text" class="form-control" [(ngModel)]="row.project" required></td>
               <td><input type="text" class="form-control" [(ngModel)]="row.sunHours" required></td>
               <td><input type="text" class="form-control" [(ngModel)]="row.monHours" required></td>
               <td><input type="text" class="form-control" [(ngModel)]="row.tueHours" required></td>
