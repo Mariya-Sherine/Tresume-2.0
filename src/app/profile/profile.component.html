@@ -43,7 +43,7 @@
                         </ng-container>
                         <ng-template #editModeTemplate9>
                           <input type="text" class="form-control custom-input" id="firstName" placeholder="First Name"
-                            [(ngModel)]="firstName" name="firstName" required>
+                            formControlName="firstName" name="firstName" required>
                         </ng-template>
                       </div>
                       <div class="col">
@@ -75,7 +75,7 @@
                         </ng-container>
                         <ng-template #editModeTemplate3>
                           <input type="text" class="form-control custom-input" id="userName" placeholder="User Name"
-                            [(ngModel)]="userName" name="userName" required>
+                          formControlName="userName" name="userName" required>
                         </ng-template>
                       </div>
                       <div class="col">
@@ -85,7 +85,7 @@
                         </ng-container>
                         <ng-template #editModeTemplate4>
                           <select class="form-control custom-input" id="yearsOfExperience"
-                            [(ngModel)]="yearsOfExperience"  name="yearsOfExperience" required>
+                            [(ngModel)]="yearsOfExperience" name="yearsOfExperience" required>
                             <option value="">Select years of experience</option>
                             <option value="0">0 years</option>
                             <option value="1">1 year</option>
@@ -95,7 +95,6 @@
                           </select>
                         </ng-template>
                       </div>
-                    
                       <div class="col">
                         <label for="monthsOfExperience">Months of Experience</label>
                         <ng-container *ngIf="!editmode;else editModeTemplate5"><span>{{ monthsOfExperience
@@ -116,11 +115,11 @@
                       <div class="col">
                         <label for="title">Title</label>
                         <ng-container *ngIf="!editmode;else editModeTemplate10">
-                          <span>{{ title }}</span> 
+                          <span>{{ title }}</span>
                         </ng-container>
                         <ng-template #editModeTemplate10>
-                          <input type="text" class="form-control custom-input" id="title"
-                            placeholder="Title" [(ngModel)]="title" name="title" required>
+                          <input type="text" class="form-control custom-input" id="title" placeholder="Title"
+                            [(ngModel)]="title" name="title" required>
                           <div
                             *ngIf="myForm.controls.title.invalid && (myForm.controls.title.dirty || myForm.controls.title.touched)">
                             <small class="text-danger">Title is required</small>
@@ -129,10 +128,10 @@
                       </div>
                       <div class="col">
                         <label for="dob">DOB</label>
-                        <ng-container  *ngIf="!editmode;else editModeTemplate7"> <span>{{ dob }}</span></ng-container>
-                       <ng-template  #editModeTemplate7>
-                        <input type="date" class="form-control custom-input" id="dob" [(ngModel)]="dob"
-                          name="dob" required>
+                        <ng-container *ngIf="!editmode;else editModeTemplate7"> <span>{{ dob }}</span></ng-container>
+                        <ng-template #editModeTemplate7>
+                          <input type="date" class="form-control custom-input" id="dob" [(ngModel)]="dob" name="dob"
+                            required>
                         </ng-template>
                       </div>
                       <div class="col">
@@ -142,10 +141,10 @@
                         </ng-container>
                         <ng-template #editModeTemplate8>
                           <input type="text" class="form-control custom-input" id="phoneNumber"
-                            placeholder="Phone Number" [(ngModel)]="phoneNumber" name="phoneNumber" pattern="[0-9]{10}"
+                            placeholder="Phone Number" formControlName="phoneNumber" name="phoneNumber" pattern="[0-9]{10}"
                             required>
-                          <div *ngIf="myForm.controls.phoneNumber.invalid && 
-                          (myForm.controls.phoneNumber.dirty || myForm.controls.phoneNumber.touched)">
+                          <div *ngIf="passwordForm.controls.phoneNumber.invalid && 
+                          (passwordForm.controls.phoneNumber.dirty || passwordForm.controls.phoneNumber.touched)">
                             <small class="text-danger">Please enter a valid 10-digit phone number</small>
                           </div>
                         </ng-template>
@@ -162,109 +161,115 @@
               </div>
               <div class="tab-pane" id="Password">
                 <div class="container mt-4">
-                  <h2>Password </h2>
-                  <div class="form-row mt-4">
-                    <div class="form-group col">
-                      <label for="oldPassword">Old Password</label>
-                      <span *ngIf="!editmode">{{ oldPassword }}</span>
-                      <input *ngIf="editmode" type="password" class="form-control" id="oldPassword"
-                        placeholder="Old Password" [(ngModel)]="oldPassword">
+                  <form [formGroup]="passwordForm">
+                    <h2>Password </h2>
+                    <div class="form-row mt-4">
+                      <div class="form-group col">
+                        <label for="oldPassword">Old Password</label>
+                        <span *ngIf="!editmode">{{ oldPassword }}</span>
+                        <input *ngIf="editmode" type="password" class="form-control" id="oldPassword"
+                          placeholder="Old Password" formControlName="oldPassword">
+                      </div>
+                      <div class="form-group col">
+                        <label for="newPassword">New Password</label>
+                        <span *ngIf="!editmode">{{ newPassword }}</span>
+                        <input *ngIf="editmode" type="password" class="form-control" id="newPassword"
+                          placeholder="New Password" formControlName="newPassword">
+                      </div>
+                      <div class="form-group col">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <span *ngIf="!editmode">{{ confirmPassword }}</span>
+                        <input *ngIf="editmode" type="password" class="form-control" id="confirmPassword"
+                          placeholder="Confirm Password" formControlName="confirmPassword">
+                      </div>
                     </div>
-                    <div class="form-group col">
-                      <label for="newPassword">New Password</label>
-                      <span *ngIf="!editmode">{{ newPassword }}</span>
-                      <input *ngIf="editmode" type="password" class="form-control" id="newPassword"
-                        placeholder="New Password" [(ngModel)]="newPassword">
+                    <div class="row mt-4">
+                      <div class="col text-right">
+                        <button class="btn">Cancel</button>
+                        <button class="btn ml-2" (click)="onSave()">Save</button>
+                      </div>
                     </div>
-                    <div class="form-group col">
-                      <label for="confirmPassword">Confirm Password</label>
-                      <span *ngIf="!editmode">{{ confirmPassword }}</span>
-                      <input *ngIf="editmode" type="password" class="form-control" id="confirmPassword"
-                        placeholder="Confirm Password" [(ngModel)]="confirmPassword">
-                    </div>
-                  </div>
-                  <div class="row mt-4">
-                    <div class="col text-right">
-                      <button class="btn">Cancel</button>
-                      <button class="btn ml-2" (click)="onSave()">Save</button>
-                    </div>
-                  </div>
+                  </form>
                 </div>
               </div>
               <div class="tab-pane " id="Company">
                 <div class="container mt-4">
-                  <div class="container mt-4">
-                    <div class="form-row mt-4">
-                      <div class="form-group col-6">
-                        <form #myForm="ngForm">
-                          <label for="companyName">
-                            <h2>Organisation</h2>
-                          </label>
-                          <span *ngIf="!editmode">{{ companyName }}</span>
-                          <input *ngIf="editmode" type="text" class="form-control custom-input" id="companyName"
-                            placeholder="Enter Company Name" [(ngModel)]="companyName" name="companyName" required>
-                        </form>
-                      </div>
-                    </div>
-                    <div class="form-row mt-2">
-                      <div class="form-group col-6">
-                        <label for="logo">Logo Type:</label>
-                        <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="logo" (change)="onFileSelected($event)">
-                          <label class="custom-file-label" for="logo">Choose file</label>
-                        </div>
-                        <div class="mt-2">
-                          <img src="{{ logoImageUrl }}" alt="Selected Logo" *ngIf="logoImageUrl" width="50" height="50">
+                  <form [formGroup]="companyForm">
+                    <div class="container mt-4">
+                      <div class="form-row mt-4">
+                        <div class="form-group col-6">
+                          <form #myForm="ngForm">
+                            <label for="companyName">
+                              <h2>Organisation</h2>
+                            </label>
+                            <span *ngIf="!editmode">{{ companyName }}</span>
+                            <input *ngIf="editmode" type="text" class="form-control custom-input" id="companyName"
+                              placeholder="Enter Company Name" formControlName="companyName" name="companyName" required>
+                          </form>
                         </div>
                       </div>
-                    </div>
- 
-                    <div class="form-row mt-2">
-                      <div class="form-group col-6">
-                        <label for="state">State:</label>
-                        <span *ngIf="!state">{{ state }}</span>
-                        <select *ngIf="state" class="form-control custom-input" id="state" [(ngModel)]="selectedState">
-                          <option value="Georgia">Georgia</option>
-                          <option value="Florida">Florida</option>
-                          <option value="Hawaii">Hawaii</option>
-                          <option value="Idaho">Idaho</option>
-                          <option value="District of Columbia">District of Columbia</option>
-                          <option value="Illinois">Illinois</option>
-                        </select>
+                      <div class="form-row mt-2">
+                        <div class="form-group col-6">
+                          <label for="logo">Logo Type:</label>
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="logo" (change)="onFileSelected($event)">
+                            <label class="custom-file-label" for="logo">Choose file</label>
+                          </div>
+                          <div class="mt-2">
+                            <img src="{{ logoImageUrl }}" alt="Selected Logo" *ngIf="logoImageUrl" width="50"
+                              height="50">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-row mt-2">
+                        <div class="form-group col-6">
+                          <label for="state">State:</label>
+                          <span *ngIf="!state">{{ state }}</span>
+                          <select *ngIf="state" class="form-control custom-input" id="state"
+                            [(ngModel)]="selectedState">
+                            <option value="Georgia">Georgia</option>
+                            <option value="Florida">Florida</option>
+                            <option value="Hawaii">Hawaii</option>
+                            <option value="Idaho">Idaho</option>
+                            <option value="District of Columbia">District of Columbia</option>
+                            <option value="Illinois">Illinois</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-row mt-2">
+                        <div class="form-group col-6">
+                          <label for="city">City:</label>
+                          <span *ngIf="!city">{{ city }}</span>
+                          <select *ngIf="city" class="form-control custom-input" id="city" [(ngModel)]="selectedCity">
+                            <option value="Roswell">Roswell</option>
+                            <option value="Rupert">Rupert</option>
+                            <option value="Rydul">Rydul</option>
+                            <option value="Rudledge">Rudledge</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-row mt-2">
+                        <div class="form-group col-6">
+                          <label for="zipcode">Zip Code:</label>
+                          <span *ngIf="!editmode">{{ zipcode }}</span>
+                          <input *ngIf="editmode" type="text" class="form-control custom-input" id="zipcode"
+                            placeholder="Enter Zip Code" formControlName="zipcode">
+                        </div>
                       </div>
                     </div>
-                    <div class="form-row mt-2">
-                      <div class="form-group col-6">
-                        <label for="city">City:</label>
-                        <span *ngIf="!city">{{ city }}</span>
-                        <select *ngIf="city" class="form-control custom-input" id="city" [(ngModel)]="selectedCity">
-                          <option value="Roswell">Roswell</option>
-                          <option value="Rupert">Rupert</option>
-                          <option value="Rydul">Rydul</option>
-                          <option value="Rudledge">Rudledge</option>
-                        </select>
+                    <div class="form-group mt-4">
+                      <p-editor [(ngModel)]="content" placeholder="textediter....."
+                        [style]="{'height':'320px', 'width':'100%'}"
+                        placeholder="Enter the email content to be sent......"></p-editor>
+                    </div>
+                    <div class="row mt-4">
+                      <div class="col text-right">
+                        <button class="btn">Cancel</button>
+                        <button class="btn ml-2" (click)="onSave()">Save</button>
                       </div>
                     </div>
-                    <div class="form-row mt-2">
-                      <div class="form-group col-6">
-                        <label for="zipcode">Zip Code:</label>
-                        <span *ngIf="!editmode">{{ zipcode }}</span>
-                        <input *ngIf="editmode" type="text" class="form-control custom-input" id="zipcode"
-                          placeholder="Enter Zip Code" [(ngModel)]="zipcode">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group mt-4">
-                    <p-editor [(ngModel)]="content" placeholder="textediter....."
-                      [style]="{'height':'320px', 'width':'100%'}"
-                      placeholder="Enter the email content to be sent......"></p-editor>
-                  </div>
-                  <div class="row mt-4">
-                    <div class="col text-right">
-                      <button class="btn">Cancel</button>
-                      <button class="btn ml-2" (click)="onSave()">Save</button>
-                    </div>
-                  </div>
+                  </form>
                 </div>
               </div>
             </div>

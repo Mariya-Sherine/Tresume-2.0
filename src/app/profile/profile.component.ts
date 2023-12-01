@@ -31,7 +31,8 @@ export class ProfileComponent implements OnInit {
   logoImageUrl: string;
   editmode: boolean = false;
   myForm: any;
-  
+  passwordForm:any;
+  companyForm:any;
 
   // inputFields = [
   //   { key: 'firstName', label: 'First Name', placeholder: 'Enter First Name', required: true },
@@ -48,6 +49,10 @@ export class ProfileComponent implements OnInit {
       { name: 'Istanbul', code: 'IST' },
       { name: 'Paris', code: 'PRS' }
     ];
+
+    this.passwordForm = this.fb.group({
+      phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]{10}')]]
+    });
   }
 
   ngOnInit(): void {
@@ -56,8 +61,10 @@ export class ProfileComponent implements OnInit {
     //   this.myForm.addControl(field.key, this.fb.control(''));
     // });
   }
+
+
   onSave() {
-    console.log(this.firstName)
+    return this.myForm.get('phoneNumber');
   }
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -80,4 +87,6 @@ export class ProfileComponent implements OnInit {
    selectDateOption(option: string) {
     console.log(`Selected date option: ${option}`);
 }
+
+
 }
